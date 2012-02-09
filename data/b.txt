@@ -1,0 +1,43 @@
+
+QA 146 2003-01
+Thu May 29 11:44:35 MDT 2003
+ 
+ana6 May 29 11:17
+ana9 May 29 11:17
+ana_p May 29 11:17
+ana6p May 29 11:20
+das6 May 29 11:17
+das9 May 29 11:17
+das_p May 29 11:17
+das6p May 29 11:20
+ims6 May 29 11:17
+ims9 May 29 11:17
+ims_p May 29 11:17
+ims6p May 29 11:20
+ncfi6 May 29 11:33
+ncfi9 May 29 11:33
+ncfi_p May 29 11:33
+ncfi6p May 29 11:40
+nda6 May 29 11:17
+nda9 May 29 11:17
+nda_p May 29 11:17
+nda6p May 29 11:20
+nmch6 May 29 11:18
+nmch9 May 29 11:18
+nmch_p May 29 11:18
+nmch6p May 29 11:20
+nmex6 May 06 21:16
+nmex9 May 22 10:19
+nmex_p Apr 29 00:54
+nmex6p May 06 21:16
+nci6 May 29 11:34
+nci9 May 29 11:34
+nci_p May 29 11:34
+nci6p May 29 11:40
+
+more ERRORS
+a howle liaot
+of th things
+that I ahve  to put
+in heres will
+work oke

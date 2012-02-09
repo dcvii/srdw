@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Date: Wed, 09 Jul 2003 18:25:16 GMT
+Server: IBM_HTTP_SERVER/1.3.19.2  Apache/1.3.20 (Win32)
+Set-Cookie: JSESSIONID=0000FJBF5YFUMKSYJBEPDUCT5JQ:uduhflpg;Path=/
+Cache-Control: no-cache="set-cookie,set-cookie2"
+Expires: Thu, 01 Dec 1994 16:00:00 GMT
+Pragma: no-cache
+Cache-Control: no-cache
+Connection: close
+Content-Type: text/html; charset=UTF-8
+Content-Language: en
+

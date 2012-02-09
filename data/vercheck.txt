@@ -1,0 +1,44 @@
+Wed Jun 25 13:51:40 PDT 2003
+DEV 193
+srdw
+SRDW:Build 432
+20030625-131823
+
+rfem
+rfem:Build 007
+20030619-143911
+
+rplc
+RPLC:Build 007
+20030610-142807
+
+patb
+PATB:Build 018
+20030516-142813
+
+locl
+LOCL:Build 012
+20030604-120732
+
+rplu
+RPLU:Build 003
+20030519-173204
+
+rplc
+RPLC:Build 007
+20030610-142807
+
+rbs
+RBS:Build 006
+20030617-093222
+
+06/25/2003 09:42:08 version.sh 5013560 srdw version file updated
+06/25/2003 09:45:07 version.sh 4997318 rx10 version file updated
+06/25/2003 09:48:12 version.sh 5029940 srdw version file updated
+06/25/2003 11:07:08 version.sh 5070852 srdw version file updated
+06/25/2003 11:07:50 version.sh 5070854 rx11 version file updated
+06/25/2003 11:52:52 version.sh 4964478 srdw version file updated
+06/25/2003 12:19:02 version.sh 5021700 srdw version file updated
+06/25/2003 13:14:53 version.sh 4931626 srdw version file updated
+06/25/2003 13:18:23 version.sh 5021834 srdw version file updated
+---- DATA RUNS TODAY ----
