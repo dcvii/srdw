@@ -1,0 +1,7 @@
+login 'system' 'manager' on 'localhost';
+/* keymaster file. this generates all users and groups. */
+
+
+/* all users */
+
+create or replace user  azurdin identified by 'password' member of group NMEX1 ;

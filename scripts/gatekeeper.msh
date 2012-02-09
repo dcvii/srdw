@@ -1,0 +1,765 @@
+login 'system' 'manager' on 'localhost';
+/* gatekeeper file. this generates all security filters and grants. */
+
+/* Server Grants */
+grant supervisor to ADMIN;
+
+
+/* NMEX
+grant read on database MEX6.Main to QAADM;
+grant read on database MEX6.Main to NMEX1;
+grant read on database RFIN.Main to NMEX1;
+grant read on database RFIN2.Main to NMEX1;
+*/
+
+/* RFEM */
+create or replace filter RFEM.Main.ELIMF
+	read on 'Actual,Budget',
+	write on '@LEVMBRS(Accounts,0), @LEVMBRS("Product Type",0),
+	@LEVMBRS("Markets",0),@LEVMBRS("Product",0),@DESCENDANTS(Combos), @DESCENDANTS("Manual - Audit IDs"), Actual';
+
+create or replace filter RFEM.Main.ELIMBF
+	read on 'Actual,Budget',
+	write on '@LEVMBRS(Accounts,0), @LEVMBRS("Product Type",0),
+	@LEVMBRS("Markets",0),@LEVMBRS("Product",0),@DESCENDANTS(Combos), @DESCENDANTS("Manual - Audit IDs"), Budget';
+
+grant filter RFEM.Main.ELIMF to ELIM;
+grant execute RFEM.Main.'c_main' to ELIM;
+grant filter RFEM.Main.ELIMBF to ELIMB;
+grant execute RFEM.Main.'c_main' to ELIMB;
+
+/* ---------------------------------------------------------- */
+
+
+/* Create Filters for LOCL.Main */
+create or replace filter LOCL.Main.NCA1F no_access on '@IDESCENDANTS("Companies")', read on 'NCA';
+create or replace filter LOCL.Main.NCC1F no_access on '@IDESCENDANTS("Companies")', read on 'NCC';
+create or replace filter LOCL.Main.NESCI1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCI';
+create or replace filter LOCL.Main.NMAC1F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC';
+create or replace filter LOCL.Main.NMAC2F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC, NCA';
+create or replace filter LOCL.Main.NMEX1F no_access on '@IDESCENDANTS("Companies")', read on 'NMEX';
+create or replace filter LOCL.Main.NNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NNA';
+create or replace filter LOCL.Main.NNA3F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NESCI, NCC';
+create or replace filter LOCL.Main.NNA5F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NCA, NMAC, NCC, NESCI';
+create or replace filter LOCL.Main.ANA2F no_access on '@IDESCENDANTS("Companies")', read on 'ANA, DAS';
+create or replace filter LOCL.Main.IMS2F no_access on '@IDESCENDANTS("Companies")', read on 'IMS, NMCH';
+create or replace filter LOCL.Main.NDA1F no_access on '@IDESCENDANTS("Companies")', read on 'NDA';
+create or replace filter LOCL.Main.NMCIC4F no_access on '@IDESCENDANTS("Companies")', read on 'NMCIC, NMIC, NMIHC, NMISC';
+
+/* new five - mbowen@mdcbowen.org 20030502.1700 */
+create or replace filter LOCL.Main.NCI2F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI';
+create or replace filter LOCL.Main.NCI3F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI, NESCO';
+create or replace filter LOCL.Main.NESCO1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCO';
+create or replace filter LOCL.Main.NTCNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NTCNA';
+create or replace filter LOCL.Main.NMCH1F no_access on '@IDESCENDANTS("Companies")', read on 'NMCH';
+
+
+/* LOCL Grants */
+grant read on database LOCL.Main to QAADM;
+grant read on database LOCL.Main to NARDW;
+
+grant filter LOCL.Main.NCA1F to NCA1;
+grant filter LOCL.Main.NCC1F to NCC1;
+grant filter LOCL.Main.NESCI1F to NESCI1;
+grant filter LOCL.Main.NMAC1F to NMAC1;
+grant filter LOCL.Main.NMAC2F to NMAC2;
+grant filter LOCL.Main.NMEX1F to NMEX1;
+grant filter LOCL.Main.NNA1F to NNA1;
+grant filter LOCL.Main.NNA3F to NNA3;
+grant filter LOCL.Main.NNA5F to NNA5;
+
+grant filter LOCL.Main.ANA2F to ANA2;
+grant filter LOCL.Main.IMS2F to IMS2;
+grant filter LOCL.Main.NDA1F to NDA1;
+grant filter LOCL.Main.NMCIC4F to NMCIC4;
+
+grant filter LOCL.Main.NCI2F to NCI2;
+grant filter LOCL.Main.NCI3F to NCI3;
+grant filter LOCL.Main.NESCO1F to NESCO1;
+grant filter LOCL.Main.NTCNA1F to NTCNA1;
+grant filter LOCL.Main.NMCH1F to NMCH1;
+
+
+
+/* ---------------------------------------------------------- */
+
+
+/* Create Filters for LOCL2.Main */
+create or replace filter LOCL2.Main.NCA1F no_access on '@IDESCENDANTS("Companies")', read on 'NCA';
+create or replace filter LOCL2.Main.NCC1F no_access on '@IDESCENDANTS("Companies")', read on 'NCC';
+create or replace filter LOCL2.Main.NESCI1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCI';
+create or replace filter LOCL2.Main.NMAC1F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC';
+create or replace filter LOCL2.Main.NMAC2F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC, NCA';
+create or replace filter LOCL2.Main.NMEX1F no_access on '@IDESCENDANTS("Companies")', read on 'NMEX';
+create or replace filter LOCL2.Main.NNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NNA';
+create or replace filter LOCL2.Main.NNA3F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NESCI, NCC';
+create or replace filter LOCL2.Main.NNA5F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NCA, NMAC, NCC, NESCI';
+create or replace filter LOCL2.Main.ANA2F no_access on '@IDESCENDANTS("Companies")', read on 'ANA, DAS';
+create or replace filter LOCL2.Main.IMS2F no_access on '@IDESCENDANTS("Companies")', read on 'IMS, NMCH';
+create or replace filter LOCL2.Main.NDA1F no_access on '@IDESCENDANTS("Companies")', read on 'NDA';
+create or replace filter LOCL2.Main.NMCIC4F no_access on '@IDESCENDANTS("Companies")', read on 'NMCIC, NMIC, NMIHC, NMISC';
+
+/* new five - mbowen@mdcbowen.org 20030502.1700 */
+create or replace filter LOCL2.Main.NCI2F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI';
+create or replace filter LOCL2.Main.NCI3F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI, NESCO';
+create or replace filter LOCL2.Main.NESCO1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCO';
+create or replace filter LOCL2.Main.NTCNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NTCNA';
+create or replace filter LOCL2.Main.NMCH1F no_access on '@IDESCENDANTS("Companies")', read on 'NMCH';
+
+
+/* LOCL2 Grants */
+grant read on database LOCL2.Main to QAADM;
+grant read on database LOCL2.Main to NARDW;
+
+grant filter LOCL2.Main.NCA1F to NCA1;
+grant filter LOCL2.Main.NCC1F to NCC1;
+grant filter LOCL2.Main.NESCI1F to NESCI1;
+grant filter LOCL2.Main.NMAC1F to NMAC1;
+grant filter LOCL2.Main.NMAC2F to NMAC2;
+grant filter LOCL2.Main.NMEX1F to NMEX1;
+grant filter LOCL2.Main.NNA1F to NNA1;
+grant filter LOCL2.Main.NNA3F to NNA3;
+grant filter LOCL2.Main.NNA5F to NNA5;
+
+grant filter LOCL2.Main.ANA2F to ANA2;
+grant filter LOCL2.Main.IMS2F to IMS2;
+grant filter LOCL2.Main.NDA1F to NDA1;
+grant filter LOCL2.Main.NMCIC4F to NMCIC4;
+
+grant filter LOCL2.Main.NCI2F to NCI2;
+grant filter LOCL2.Main.NCI3F to NCI3;
+grant filter LOCL2.Main.NESCO1F to NESCO1;
+grant filter LOCL2.Main.NTCNA1F to NTCNA1;
+grant filter LOCL2.Main.NMCH1F to NMCH1;
+
+
+/* ---------------------------------------------------------- */
+
+
+/* PATB Filters */
+create or replace filter PATB.Main.NARDWF read on '@IDESCENDANTS("Companies")';
+create or replace filter PATB.Main.NCA1F no_access on '@IDESCENDANTS("Companies")', read on '"2168"';
+create or replace filter PATB.Main.NCC1F no_access on '@IDESCENDANTS("Companies")', read on '"2169"';
+create or replace filter PATB.Main.NESCI1F no_access on '@IDESCENDANTS("Companies")', read on '"2228"';
+create or replace filter PATB.Main.NMAC1F no_access on '@IDESCENDANTS("Companies")', read on '"2179"';
+create or replace filter PATB.Main.NMAC2F no_access on '@IDESCENDANTS("Companies")', read on '"2179", "2168"';
+create or replace filter PATB.Main.NMEX1F no_access on '@IDESCENDANTS("Companies")', read on '"2158"';
+create or replace filter PATB.Main.NNA1F no_access on '@IDESCENDANTS("Companies")', read on '"2177"';
+create or replace filter PATB.Main.NNA3F no_access on '@IDESCENDANTS("Companies")', read on '"2177", "2228", "2169"';
+create or replace filter PATB.Main.NNA5F no_access on '@IDESCENDANTS("Companies")', read on '"2177", "2168", "2179", "2169", "2228"';
+
+create or replace filter PATB.Main.ANA2F no_access on '@IDESCENDANTS("Companies")', read on '"2214", "2652"';
+create or replace filter PATB.Main.IMS2F no_access on '@IDESCENDANTS("Companies")', read on '"2132", "2153"';
+create or replace filter PATB.Main.NDA1F no_access on '@IDESCENDANTS("Companies")', read on '"2172"';
+create or replace filter PATB.Main.NMCIC4F no_access on '@IDESCENDANTS("Companies")', read on '"2149", "2148", "2147", "2146"';
+
+create or replace filter PATB.Main.NCI2F no_access on '@IDESCENDANTS("Companies")', read on '"2135", "2136"';
+create or replace filter PATB.Main.NCI3F no_access on '@IDESCENDANTS("Companies")', read on '"2135", "2136", "2227"';
+create or replace filter PATB.Main.NESCO1F no_access on '@IDESCENDANTS("Companies")', read on '"2227"';
+create or replace filter PATB.Main.NTCNA1F no_access on '@IDESCENDANTS("Companies")', read on '"2174"';
+create or replace filter PATB.Main.NMCH1F no_access on '@IDESCENDANTS("Companies")', read on '"2153"';
+
+
+/* PATB Grants */
+
+grant read on database PATB.Main to NARDW;
+grant read on database PATB.Main to QAADM;
+
+grant filter PATB.Main.NCA1F to NCA1;
+grant filter PATB.Main.NCC1F to NCC1;
+grant filter PATB.Main.NESCI1F to NESCI1;
+grant filter PATB.Main.NMAC1F to NMAC1;
+grant filter PATB.Main.NMAC2F to NMAC2;
+grant filter PATB.Main.NMEX1F to NMEX1;
+grant filter PATB.Main.NNA1F to NNA1;
+grant filter PATB.Main.NNA3F to NNA3;
+grant filter PATB.Main.NNA5F to NNA5;
+
+grant filter PATB.Main.ANA2F to ANA2;
+grant filter PATB.Main.IMS2F to IMS2;
+grant filter PATB.Main.NDA1F to NDA1;
+grant filter PATB.Main.NMCIC4F to NMCIC4;
+
+grant filter PATB.Main.NCI2F to NCI2;
+grant filter PATB.Main.NCI3F to NCI3;
+grant filter PATB.Main.NESCO1F to NESCO1;
+grant filter PATB.Main.NTCNA1F to NTCNA1;
+grant filter PATB.Main.NMCH1F to NMCH1;
+
+
+
+/* ---------------------------------------------------------- */
+/* PATB2 Filters */
+create or replace filter PATB2.Main.NARDWF read on '@IDESCENDANTS("Companies")';
+create or replace filter PATB2.Main.NCA1F no_access on '@IDESCENDANTS("Companies")', read on '"2168"';
+create or replace filter PATB2.Main.NCC1F no_access on '@IDESCENDANTS("Companies")', read on '"2169"';
+create or replace filter PATB2.Main.NESCI1F no_access on '@IDESCENDANTS("Companies")', read on '"2228"';
+create or replace filter PATB2.Main.NMAC1F no_access on '@IDESCENDANTS("Companies")', read on '"2179"';
+create or replace filter PATB2.Main.NMAC2F no_access on '@IDESCENDANTS("Companies")', read on '"2179", "2168"';
+create or replace filter PATB2.Main.NMEX1F no_access on '@IDESCENDANTS("Companies")', read on '"2158"';
+create or replace filter PATB2.Main.NNA1F no_access on '@IDESCENDANTS("Companies")', read on '"2177"';
+create or replace filter PATB2.Main.NNA3F no_access on '@IDESCENDANTS("Companies")', read on '"2177", "2228", "2169"';
+create or replace filter PATB2.Main.NNA5F no_access on '@IDESCENDANTS("Companies")', read on '"2177", "2168", "2179", "2169", "2228"';
+
+create or replace filter PATB2.Main.ANA2F no_access on '@IDESCENDANTS("Companies")', read on '"2214", "2652"';
+create or replace filter PATB2.Main.IMS2F no_access on '@IDESCENDANTS("Companies")', read on '"2132", "2153"';
+create or replace filter PATB2.Main.NDA1F no_access on '@IDESCENDANTS("Companies")', read on '"2172"';
+create or replace filter PATB2.Main.NMCIC4F no_access on '@IDESCENDANTS("Companies")', read on '"2149", "2148", "2147", "2146"';
+
+create or replace filter PATB2.Main.NCI2F no_access on '@IDESCENDANTS("Companies")', read on '"2135", "2136"';
+create or replace filter PATB2.Main.NCI3F no_access on '@IDESCENDANTS("Companies")', read on '"2135", "2136", "2227"';
+create or replace filter PATB2.Main.NESCO1F no_access on '@IDESCENDANTS("Companies")', read on '"2227"';
+create or replace filter PATB2.Main.NTCNA1F no_access on '@IDESCENDANTS("Companies")', read on '"2174"';
+create or replace filter PATB2.Main.NMCH1F no_access on '@IDESCENDANTS("Companies")', read on '"2153"';
+
+/* PATB2 Grants */
+grant read on database PATB2.Main to NARDW;
+grant read on database PATB2.Main to QAADM;
+
+grant filter PATB2.Main.NCA1F to NCA1;
+grant filter PATB2.Main.NCC1F to NCC1;
+grant filter PATB2.Main.NESCI1F to NESCI1;
+grant filter PATB2.Main.NMAC1F to NMAC1;
+grant filter PATB2.Main.NMAC2F to NMAC2;
+grant filter PATB2.Main.NMEX1F to NMEX1;
+grant filter PATB2.Main.NNA1F to NNA1;
+grant filter PATB2.Main.NNA3F to NNA3;
+grant filter PATB2.Main.NNA5F to NNA5;
+
+grant filter PATB2.Main.ANA2F to ANA2;
+grant filter PATB2.Main.IMS2F to IMS2;
+grant filter PATB2.Main.NDA1F to NDA1;
+grant filter PATB2.Main.NMCIC4F to NMCIC4;
+
+grant filter PATB2.Main.NCI2F to NCI2;
+grant filter PATB2.Main.NCI3F to NCI3;
+grant filter PATB2.Main.NESCO1F to NESCO1;
+grant filter PATB2.Main.NTCNA1F to NTCNA1;
+grant filter PATB2.Main.NMCH1F to NMCH1;
+
+
+
+/* ---------------------------------------------------------- */
+/* RPLU */
+
+create or replace filter RPLU.Main.NCA1F no_access on '@IDESCENDANTS("Companies")', read on 'NCA';
+create or replace filter RPLU.Main.NCC1F no_access on '@IDESCENDANTS("Companies")', read on 'NCC';
+create or replace filter RPLU.Main.NESCI1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCI';
+create or replace filter RPLU.Main.NMAC1F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC';
+create or replace filter RPLU.Main.NMAC2F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC, NCA';
+create or replace filter RPLU.Main.NMEX1F no_access on '@IDESCENDANTS("Companies")', read on 'NMEX';
+create or replace filter RPLU.Main.NNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NNA';
+create or replace filter RPLU.Main.NNA3F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NESCI, NCC';
+create or replace filter RPLU.Main.NNA5F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NCA, NMAC, NCC, NESCI';
+create or replace filter RPLU.Main.ANA2F no_access on '@IDESCENDANTS("Companies")', read on 'ANA, DAS';
+create or replace filter RPLU.Main.IMS2F no_access on '@IDESCENDANTS("Companies")', read on 'IMS, NMCH';
+create or replace filter RPLU.Main.NDA1F no_access on '@IDESCENDANTS("Companies")', read on 'NDA';
+create or replace filter RPLU.Main.NMCIC4F no_access on '@IDESCENDANTS("Companies")', read on 'NMCIC, NMIC, NMIHC, NMISC';
+
+/* new five - mbowen@mdcbowen.org 20030502.1700 */
+create or replace filter RPLU.Main.NCI2F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI';
+create or replace filter RPLU.Main.NCI3F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI, NESCO';
+create or replace filter RPLU.Main.NESCO1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCO';
+create or replace filter RPLU.Main.NTCNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NTCNA';
+create or replace filter RPLU.Main.NMCH1F no_access on '@IDESCENDANTS("Companies")', read on 'NMCH';
+
+
+grant read on database RPLU.Main to QAADM;
+grant read on database RPLU.Main to NARDW;
+
+grant filter RPLU.Main.NCA1F to NCA1;
+grant filter RPLU.Main.NCC1F to NCC1;
+grant filter RPLU.Main.NESCI1F to NESCI1;
+grant filter RPLU.Main.NMAC1F to NMAC1;
+grant filter RPLU.Main.NMAC2F to NMAC2;
+grant filter RPLU.Main.NMEX1F to NMEX1;
+grant filter RPLU.Main.NNA1F to NNA1;
+grant filter RPLU.Main.NNA3F to NNA3;
+grant filter RPLU.Main.NNA5F to NNA5;
+
+grant filter RPLU.Main.ANA2F to ANA2;
+grant filter RPLU.Main.IMS2F to IMS2;
+grant filter RPLU.Main.NDA1F to NDA1;
+grant filter RPLU.Main.NMCIC4F to NMCIC4;
+
+/* new five  */
+grant filter RPLU.Main.NCI2F to NCI2;
+grant filter RPLU.Main.NCI3F to NCI3;
+grant filter RPLU.Main.NESCO1F to NESCO1;
+grant filter RPLU.Main.NTCNA1F to NTCNA1;
+grant filter RPLU.Main.NMCH1F to NMCH1;
+
+
+/* ---------------------------------------------------------- */
+
+/* RPLU 2 */
+create or replace filter RPLU2.Main.NCA1F no_access on '@IDESCENDANTS("Companies")', read on 'NCA';
+create or replace filter RPLU2.Main.NCC1F no_access on '@IDESCENDANTS("Companies")', read on 'NCC';
+create or replace filter RPLU2.Main.NESCI1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCI';
+create or replace filter RPLU2.Main.NMAC1F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC';
+create or replace filter RPLU2.Main.NMAC2F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC, NCA';
+create or replace filter RPLU2.Main.NMEX1F no_access on '@IDESCENDANTS("Companies")', read on 'NMEX';
+create or replace filter RPLU2.Main.NNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NNA';
+create or replace filter RPLU2.Main.NNA3F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NESCI, NCC';
+create or replace filter RPLU2.Main.NNA5F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NCA, NMAC, NCC, NESCI';
+create or replace filter RPLU2.Main.ANA2F no_access on '@IDESCENDANTS("Companies")', read on 'ANA, DAS';
+create or replace filter RPLU2.Main.IMS2F no_access on '@IDESCENDANTS("Companies")', read on 'IMS, NMCH';
+create or replace filter RPLU2.Main.NDA1F no_access on '@IDESCENDANTS("Companies")', read on 'NDA';
+create or replace filter RPLU2.Main.NMCIC4F no_access on '@IDESCENDANTS("Companies")', read on 'NMCIC, NMIC, NMIHC, NMISC';
+
+/* new five - mbowen@mdcbowen.org 20030502.1700 */
+create or replace filter RPLU2.Main.NCI2F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI';
+create or replace filter RPLU2.Main.NCI3F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI, NESCO';
+create or replace filter RPLU2.Main.NESCO1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCO';
+create or replace filter RPLU2.Main.NTCNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NTCNA';
+create or replace filter RPLU2.Main.NMCH1F no_access on '@IDESCENDANTS("Companies")', read on 'NMCH';
+
+
+grant read on database RPLU2.Main to QAADM;
+grant read on database RPLU2.Main to NARDW;
+
+grant filter RPLU2.Main.NCA1F to NCA1;
+grant filter RPLU2.Main.NCC1F to NCC1;
+grant filter RPLU2.Main.NESCI1F to NESCI1;
+grant filter RPLU2.Main.NMAC1F to NMAC1;
+grant filter RPLU2.Main.NMAC2F to NMAC2;
+grant filter RPLU2.Main.NMEX1F to NMEX1;
+grant filter RPLU2.Main.NNA1F to NNA1;
+grant filter RPLU2.Main.NNA3F to NNA3;
+grant filter RPLU2.Main.NNA5F to NNA5;
+
+grant filter RPLU2.Main.ANA2F to ANA2;
+grant filter RPLU2.Main.IMS2F to IMS2;
+grant filter RPLU2.Main.NDA1F to NDA1;
+grant filter RPLU2.Main.NMCIC4F to NMCIC4;
+
+/* new five  */
+grant filter RPLU2.Main.NCI2F to NCI2;
+grant filter RPLU2.Main.NCI3F to NCI3;
+grant filter RPLU2.Main.NESCO1F to NESCO1;
+grant filter RPLU2.Main.NTCNA1F to NTCNA1;
+grant filter RPLU2.Main.NMCH1F to NMCH1;
+
+
+/* ---------------------------------------------------------- */
+
+/* RPLU 3 */
+create or replace filter RPLU3.Main.NCA1F no_access on '@IDESCENDANTS("Companies")', read on 'NCA';
+create or replace filter RPLU3.Main.NCC1F no_access on '@IDESCENDANTS("Companies")', read on 'NCC';
+create or replace filter RPLU3.Main.NESCI1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCI';
+create or replace filter RPLU3.Main.NMAC1F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC';
+create or replace filter RPLU3.Main.NMAC2F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC, NCA';
+create or replace filter RPLU3.Main.NMEX1F no_access on '@IDESCENDANTS("Companies")', read on 'NMEX';
+create or replace filter RPLU3.Main.NNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NNA';
+create or replace filter RPLU3.Main.NNA3F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NESCI, NCC';
+create or replace filter RPLU3.Main.NNA5F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NCA, NMAC, NCC, NESCI';
+create or replace filter RPLU3.Main.ANA2F no_access on '@IDESCENDANTS("Companies")', read on 'ANA, DAS';
+create or replace filter RPLU3.Main.IMS2F no_access on '@IDESCENDANTS("Companies")', read on 'IMS, NMCH';
+create or replace filter RPLU3.Main.NDA1F no_access on '@IDESCENDANTS("Companies")', read on 'NDA';
+create or replace filter RPLU3.Main.NMCIC4F no_access on '@IDESCENDANTS("Companies")', read on 'NMCIC, NMIC, NMIHC, NMISC';
+
+/* new five - mbowen@mdcbowen.org 20030502.1700 */
+create or replace filter RPLU3.Main.NCI2F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI';
+create or replace filter RPLU3.Main.NCI3F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI, NESCO';
+create or replace filter RPLU3.Main.NESCO1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCO';
+create or replace filter RPLU3.Main.NTCNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NTCNA';
+create or replace filter RPLU3.Main.NMCH1F no_access on '@IDESCENDANTS("Companies")', read on 'NMCH';
+
+
+grant read on database RPLU3.Main to QAADM;
+grant read on database RPLU3.Main to NARDW;
+
+grant filter RPLU3.Main.NCA1F to NCA1;
+grant filter RPLU3.Main.NCC1F to NCC1;
+grant filter RPLU3.Main.NESCI1F to NESCI1;
+grant filter RPLU3.Main.NMAC1F to NMAC1;
+grant filter RPLU3.Main.NMAC2F to NMAC2;
+grant filter RPLU3.Main.NMEX1F to NMEX1;
+grant filter RPLU3.Main.NNA1F to NNA1;
+grant filter RPLU3.Main.NNA3F to NNA3;
+grant filter RPLU3.Main.NNA5F to NNA5;
+
+grant filter RPLU3.Main.ANA2F to ANA2;
+grant filter RPLU3.Main.IMS2F to IMS2;
+grant filter RPLU3.Main.NDA1F to NDA1;
+grant filter RPLU3.Main.NMCIC4F to NMCIC4;
+
+/* new five  */
+grant filter RPLU3.Main.NCI2F to NCI2;
+grant filter RPLU3.Main.NCI3F to NCI3;
+grant filter RPLU3.Main.NESCO1F to NESCO1;
+grant filter RPLU3.Main.NTCNA1F to NTCNA1;
+grant filter RPLU3.Main.NMCH1F to NMCH1;
+
+
+
+/* ---------------------------------------------------------- */
+/* RX10 */
+
+create or replace filter RX10.Main.NCA1F no_access on '@IDESCENDANTS("Companies")', read on 'NCA';
+create or replace filter RX10.Main.NCC1F no_access on '@IDESCENDANTS("Companies")', read on 'NCC';
+create or replace filter RX10.Main.NESCI1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCI';
+create or replace filter RX10.Main.NMAC1F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC';
+create or replace filter RX10.Main.NMAC2F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC, NCA';
+create or replace filter RX10.Main.NMEX1F no_access on '@IDESCENDANTS("Companies")', read on 'NMEX';
+create or replace filter RX10.Main.NNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NNA';
+create or replace filter RX10.Main.NNA3F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NESCI, NCC';
+create or replace filter RX10.Main.NNA5F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NCA, NMAC, NCC, NESCI';
+create or replace filter RX10.Main.ANA2F no_access on '@IDESCENDANTS("Companies")', read on 'ANA, DAS';
+create or replace filter RX10.Main.IMS2F no_access on '@IDESCENDANTS("Companies")', read on 'IMS, NMCH';
+create or replace filter RX10.Main.NDA1F no_access on '@IDESCENDANTS("Companies")', read on 'NDA';
+create or replace filter RX10.Main.NMCIC4F no_access on '@IDESCENDANTS("Companies")', read on 'NMCIC, NMIC, NMIHC, NMISC';
+
+/* new five - mbowen@mdcbowen.org 20030502.1700 */
+create or replace filter RX10.Main.NCI2F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI';
+create or replace filter RX10.Main.NCI3F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI, NESCO';
+create or replace filter RX10.Main.NESCO1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCO';
+create or replace filter RX10.Main.NTCNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NTCNA';
+create or replace filter RX10.Main.NMCH1F no_access on '@IDESCENDANTS("Companies")', read on 'NMCH';
+
+
+grant read on database RX10.Main to QAADM;
+grant read on database RX10.Main to NARDW;
+
+grant filter RX10.Main.NCA1F to NCA1;
+grant filter RX10.Main.NCC1F to NCC1;
+grant filter RX10.Main.NESCI1F to NESCI1;
+grant filter RX10.Main.NMAC1F to NMAC1;
+grant filter RX10.Main.NMAC2F to NMAC2;
+grant filter RX10.Main.NMEX1F to NMEX1;
+grant filter RX10.Main.NNA1F to NNA1;
+grant filter RX10.Main.NNA3F to NNA3;
+grant filter RX10.Main.NNA5F to NNA5;
+
+grant filter RX10.Main.ANA2F to ANA2;
+grant filter RX10.Main.IMS2F to IMS2;
+grant filter RX10.Main.NDA1F to NDA1;
+grant filter RX10.Main.NMCIC4F to NMCIC4;
+
+/* new five  */
+grant filter RX10.Main.NCI2F to NCI2;
+grant filter RX10.Main.NCI3F to NCI3;
+grant filter RX10.Main.NESCO1F to NESCO1;
+grant filter RX10.Main.NTCNA1F to NTCNA1;
+grant filter RX10.Main.NMCH1F to NMCH1;
+
+
+/* ---------------------------------------------------------- */
+/* RX10 */
+
+create or replace filter RX10.Main.NCA1F no_access on '@IDESCENDANTS("Companies")', read on 'NCA';
+create or replace filter RX10.Main.NCC1F no_access on '@IDESCENDANTS("Companies")', read on 'NCC';
+create or replace filter RX10.Main.NESCI1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCI';
+create or replace filter RX10.Main.NMAC1F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC';
+create or replace filter RX10.Main.NMAC2F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC, NCA';
+create or replace filter RX10.Main.NMEX1F no_access on '@IDESCENDANTS("Companies")', read on 'NMEX';
+create or replace filter RX10.Main.NNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NNA';
+create or replace filter RX10.Main.NNA3F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NESCI, NCC';
+create or replace filter RX10.Main.NNA5F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NCA, NMAC, NCC, NESCI';
+create or replace filter RX10.Main.ANA2F no_access on '@IDESCENDANTS("Companies")', read on 'ANA, DAS';
+create or replace filter RX10.Main.IMS2F no_access on '@IDESCENDANTS("Companies")', read on 'IMS, NMCH';
+create or replace filter RX10.Main.NDA1F no_access on '@IDESCENDANTS("Companies")', read on 'NDA';
+create or replace filter RX10.Main.NMCIC4F no_access on '@IDESCENDANTS("Companies")', read on 'NMCIC, NMIC, NMIHC, NMISC';
+
+/* new five - mbowen@mdcbowen.org 20030502.1700 */
+create or replace filter RX10.Main.NCI2F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI';
+create or replace filter RX10.Main.NCI3F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI, NESCO';
+create or replace filter RX10.Main.NESCO1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCO';
+create or replace filter RX10.Main.NTCNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NTCNA';
+create or replace filter RX10.Main.NMCH1F no_access on '@IDESCENDANTS("Companies")', read on 'NMCH';
+
+
+grant read on database RX10.Main to QAADM;
+grant read on database RX10.Main to NARDW;
+
+grant filter RX10.Main.NCA1F to NCA1;
+grant filter RX10.Main.NCC1F to NCC1;
+grant filter RX10.Main.NESCI1F to NESCI1;
+grant filter RX10.Main.NMAC1F to NMAC1;
+grant filter RX10.Main.NMAC2F to NMAC2;
+grant filter RX10.Main.NMEX1F to NMEX1;
+grant filter RX10.Main.NNA1F to NNA1;
+grant filter RX10.Main.NNA3F to NNA3;
+grant filter RX10.Main.NNA5F to NNA5;
+
+grant filter RX10.Main.ANA2F to ANA2;
+grant filter RX10.Main.IMS2F to IMS2;
+grant filter RX10.Main.NDA1F to NDA1;
+grant filter RX10.Main.NMCIC4F to NMCIC4;
+
+/* new five  */
+grant filter RX10.Main.NCI2F to NCI2;
+grant filter RX10.Main.NCI3F to NCI3;
+grant filter RX10.Main.NESCO1F to NESCO1;
+grant filter RX10.Main.NTCNA1F to NTCNA1;
+grant filter RX10.Main.NMCH1F to NMCH1;
+
+
+
+/* ---------------------------------------------------------- */
+/* RX11 */
+
+create or replace filter RX11.Main.NCA1F no_access on '@IDESCENDANTS("Companies")', read on 'NCA';
+create or replace filter RX11.Main.NCC1F no_access on '@IDESCENDANTS("Companies")', read on 'NCC';
+create or replace filter RX11.Main.NESCI1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCI';
+create or replace filter RX11.Main.NMAC1F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC';
+create or replace filter RX11.Main.NMAC2F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC, NCA';
+create or replace filter RX11.Main.NMEX1F no_access on '@IDESCENDANTS("Companies")', read on 'NMEX';
+create or replace filter RX11.Main.NNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NNA';
+create or replace filter RX11.Main.NNA3F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NESCI, NCC';
+create or replace filter RX11.Main.NNA5F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NCA, NMAC, NCC, NESCI';
+create or replace filter RX11.Main.ANA2F no_access on '@IDESCENDANTS("Companies")', read on 'ANA, DAS';
+create or replace filter RX11.Main.IMS2F no_access on '@IDESCENDANTS("Companies")', read on 'IMS, NMCH';
+create or replace filter RX11.Main.NDA1F no_access on '@IDESCENDANTS("Companies")', read on 'NDA';
+create or replace filter RX11.Main.NMCIC4F no_access on '@IDESCENDANTS("Companies")', read on 'NMCIC, NMIC, NMIHC, NMISC';
+
+/* new five - mbowen@mdcbowen.org 20030502.1700 */
+create or replace filter RX11.Main.NCI2F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI';
+create or replace filter RX11.Main.NCI3F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI, NESCO';
+create or replace filter RX11.Main.NESCO1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCO';
+create or replace filter RX11.Main.NTCNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NTCNA';
+create or replace filter RX11.Main.NMCH1F no_access on '@IDESCENDANTS("Companies")', read on 'NMCH';
+
+
+grant read on database RX11.Main to QAADM;
+grant read on database RX11.Main to NARDW;
+
+grant filter RX11.Main.NCA1F to NCA1;
+grant filter RX11.Main.NCC1F to NCC1;
+grant filter RX11.Main.NESCI1F to NESCI1;
+grant filter RX11.Main.NMAC1F to NMAC1;
+grant filter RX11.Main.NMAC2F to NMAC2;
+grant filter RX11.Main.NMEX1F to NMEX1;
+grant filter RX11.Main.NNA1F to NNA1;
+grant filter RX11.Main.NNA3F to NNA3;
+grant filter RX11.Main.NNA5F to NNA5;
+
+grant filter RX11.Main.ANA2F to ANA2;
+grant filter RX11.Main.IMS2F to IMS2;
+grant filter RX11.Main.NDA1F to NDA1;
+grant filter RX11.Main.NMCIC4F to NMCIC4;
+
+/* new five  */
+grant filter RX11.Main.NCI2F to NCI2;
+grant filter RX11.Main.NCI3F to NCI3;
+grant filter RX11.Main.NESCO1F to NESCO1;
+grant filter RX11.Main.NTCNA1F to NTCNA1;
+grant filter RX11.Main.NMCH1F to NMCH1;
+
+
+/* ---------------------------------------------------------- */
+
+
+/* ---------------------------------------------------------- */
+/* RBS */
+
+create or replace filter RBS.Main.NCA1F no_access on '@IDESCENDANTS("Companies")', read on 'NCA';
+create or replace filter RBS.Main.NCC1F no_access on '@IDESCENDANTS("Companies")', read on 'NCC';
+create or replace filter RBS.Main.NESCI1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCI';
+create or replace filter RBS.Main.NMAC1F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC';
+create or replace filter RBS.Main.NMAC2F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC, NCA';
+create or replace filter RBS.Main.NMEX1F no_access on '@IDESCENDANTS("Companies")', read on 'NMEX';
+create or replace filter RBS.Main.NNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NNA';
+create or replace filter RBS.Main.NNA3F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NESCI, NCC';
+create or replace filter RBS.Main.NNA5F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NCA, NMAC, NCC, NESCI';
+create or replace filter RBS.Main.ANA2F no_access on '@IDESCENDANTS("Companies")', read on 'ANA, DAS';
+create or replace filter RBS.Main.IMS2F no_access on '@IDESCENDANTS("Companies")', read on 'IMS, NMCH';
+create or replace filter RBS.Main.NDA1F no_access on '@IDESCENDANTS("Companies")', read on 'NDA';
+create or replace filter RBS.Main.NMCIC4F no_access on '@IDESCENDANTS("Companies")', read on 'NMCIC, NMIC, NMIHC, NMISC';
+
+/* new five - mbowen@mdcbowen.org 20030502.1700 */
+create or replace filter RBS.Main.NCI2F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI';
+create or replace filter RBS.Main.NCI3F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI, NESCO';
+create or replace filter RBS.Main.NESCO1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCO';
+create or replace filter RBS.Main.NTCNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NTCNA';
+create or replace filter RBS.Main.NMCH1F no_access on '@IDESCENDANTS("Companies")', read on 'NMCH';
+
+
+grant read on database RBS.Main to QAADM;
+grant read on database RBS.Main to NARDW;
+
+grant filter RBS.Main.NCA1F to NCA1;
+grant filter RBS.Main.NCC1F to NCC1;
+grant filter RBS.Main.NESCI1F to NESCI1;
+grant filter RBS.Main.NMAC1F to NMAC1;
+grant filter RBS.Main.NMAC2F to NMAC2;
+grant filter RBS.Main.NMEX1F to NMEX1;
+grant filter RBS.Main.NNA1F to NNA1;
+grant filter RBS.Main.NNA3F to NNA3;
+grant filter RBS.Main.NNA5F to NNA5;
+
+grant filter RBS.Main.ANA2F to ANA2;
+grant filter RBS.Main.IMS2F to IMS2;
+grant filter RBS.Main.NDA1F to NDA1;
+grant filter RBS.Main.NMCIC4F to NMCIC4;
+
+/* new five  */
+grant filter RBS.Main.NCI2F to NCI2;
+grant filter RBS.Main.NCI3F to NCI3;
+grant filter RBS.Main.NESCO1F to NESCO1;
+grant filter RBS.Main.NTCNA1F to NTCNA1;
+grant filter RBS.Main.NMCH1F to NMCH1;
+
+
+/* ---------------------------------------------------------- */
+/* RBS2 */
+
+create or replace filter RBS2.Main.NCA1F no_access on '@IDESCENDANTS("Companies")', read on 'NCA';
+create or replace filter RBS2.Main.NCC1F no_access on '@IDESCENDANTS("Companies")', read on 'NCC';
+create or replace filter RBS2.Main.NESCI1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCI';
+create or replace filter RBS2.Main.NMAC1F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC';
+create or replace filter RBS2.Main.NMAC2F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC, NCA';
+create or replace filter RBS2.Main.NMEX1F no_access on '@IDESCENDANTS("Companies")', read on 'NMEX';
+create or replace filter RBS2.Main.NNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NNA';
+create or replace filter RBS2.Main.NNA3F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NESCI, NCC';
+create or replace filter RBS2.Main.NNA5F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NCA, NMAC, NCC, NESCI';
+create or replace filter RBS2.Main.ANA2F no_access on '@IDESCENDANTS("Companies")', read on 'ANA, DAS';
+create or replace filter RBS2.Main.IMS2F no_access on '@IDESCENDANTS("Companies")', read on 'IMS, NMCH';
+create or replace filter RBS2.Main.NDA1F no_access on '@IDESCENDANTS("Companies")', read on 'NDA';
+create or replace filter RBS2.Main.NMCIC4F no_access on '@IDESCENDANTS("Companies")', read on 'NMCIC, NMIC, NMIHC, NMISC';
+
+/* new five - mbowen@mdcbowen.org 20030502.1700 */
+create or replace filter RBS2.Main.NCI2F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI';
+create or replace filter RBS2.Main.NCI3F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI, NESCO';
+create or replace filter RBS2.Main.NESCO1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCO';
+create or replace filter RBS2.Main.NTCNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NTCNA';
+create or replace filter RBS2.Main.NMCH1F no_access on '@IDESCENDANTS("Companies")', read on 'NMCH';
+
+
+grant read on database RBS2.Main to QAADM;
+grant read on database RBS2.Main to NARDW;
+
+grant filter RBS2.Main.NCA1F to NCA1;
+grant filter RBS2.Main.NCC1F to NCC1;
+grant filter RBS2.Main.NESCI1F to NESCI1;
+grant filter RBS2.Main.NMAC1F to NMAC1;
+grant filter RBS2.Main.NMAC2F to NMAC2;
+grant filter RBS2.Main.NMEX1F to NMEX1;
+grant filter RBS2.Main.NNA1F to NNA1;
+grant filter RBS2.Main.NNA3F to NNA3;
+grant filter RBS2.Main.NNA5F to NNA5;
+
+grant filter RBS2.Main.ANA2F to ANA2;
+grant filter RBS2.Main.IMS2F to IMS2;
+grant filter RBS2.Main.NDA1F to NDA1;
+grant filter RBS2.Main.NMCIC4F to NMCIC4;
+
+/* new five  */
+grant filter RBS2.Main.NCI2F to NCI2;
+grant filter RBS2.Main.NCI3F to NCI3;
+grant filter RBS2.Main.NESCO1F to NESCO1;
+grant filter RBS2.Main.NTCNA1F to NTCNA1;
+grant filter RBS2.Main.NMCH1F to NMCH1;
+
+
+/* ---------------------------------------------------------- */
+/* RBSC */
+
+create or replace filter RBSC.Main.NCA1F no_access on '@IDESCENDANTS("Companies")', read on 'NCA';
+create or replace filter RBSC.Main.NCC1F no_access on '@IDESCENDANTS("Companies")', read on 'NCC';
+create or replace filter RBSC.Main.NESCI1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCI';
+create or replace filter RBSC.Main.NMAC1F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC';
+create or replace filter RBSC.Main.NMAC2F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC, NCA';
+create or replace filter RBSC.Main.NMEX1F no_access on '@IDESCENDANTS("Companies")', read on 'NMEX';
+create or replace filter RBSC.Main.NNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NNA';
+create or replace filter RBSC.Main.NNA3F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NESCI, NCC';
+create or replace filter RBSC.Main.NNA5F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NCA, NMAC, NCC, NESCI';
+create or replace filter RBSC.Main.ANA2F no_access on '@IDESCENDANTS("Companies")', read on 'ANA, DAS';
+create or replace filter RBSC.Main.IMS2F no_access on '@IDESCENDANTS("Companies")', read on 'IMS, NMCH';
+create or replace filter RBSC.Main.NDA1F no_access on '@IDESCENDANTS("Companies")', read on 'NDA';
+create or replace filter RBSC.Main.NMCIC4F no_access on '@IDESCENDANTS("Companies")', read on 'NMCIC, NMIC, NMIHC, NMISC';
+
+/* new five - mbowen@mdcbowen.org 20030502.1700 */
+create or replace filter RBSC.Main.NCI2F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI';
+create or replace filter RBSC.Main.NCI3F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI, NESCO';
+create or replace filter RBSC.Main.NESCO1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCO';
+create or replace filter RBSC.Main.NTCNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NTCNA';
+create or replace filter RBSC.Main.NMCH1F no_access on '@IDESCENDANTS("Companies")', read on 'NMCH';
+
+
+grant read on database RBSC.Main to QAADM;
+grant read on database RBSC.Main to NARDW;
+
+grant filter RBSC.Main.NCA1F to NCA1;
+grant filter RBSC.Main.NCC1F to NCC1;
+grant filter RBSC.Main.NESCI1F to NESCI1;
+grant filter RBSC.Main.NMAC1F to NMAC1;
+grant filter RBSC.Main.NMAC2F to NMAC2;
+grant filter RBSC.Main.NMEX1F to NMEX1;
+grant filter RBSC.Main.NNA1F to NNA1;
+grant filter RBSC.Main.NNA3F to NNA3;
+grant filter RBSC.Main.NNA5F to NNA5;
+
+grant filter RBSC.Main.ANA2F to ANA2;
+grant filter RBSC.Main.IMS2F to IMS2;
+grant filter RBSC.Main.NDA1F to NDA1;
+grant filter RBSC.Main.NMCIC4F to NMCIC4;
+
+/* new five  */
+grant filter RBSC.Main.NCI2F to NCI2;
+grant filter RBSC.Main.NCI3F to NCI3;
+grant filter RBSC.Main.NESCO1F to NESCO1;
+grant filter RBSC.Main.NTCNA1F to NTCNA1;
+grant filter RBSC.Main.NMCH1F to NMCH1;
+
+
+/* ---------------------------------------------------------- */
+/* RBSC2 */
+
+create or replace filter RBSC2.Main.NCA1F no_access on '@IDESCENDANTS("Companies")', read on 'NCA';
+create or replace filter RBSC2.Main.NCC1F no_access on '@IDESCENDANTS("Companies")', read on 'NCC';
+create or replace filter RBSC2.Main.NESCI1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCI';
+create or replace filter RBSC2.Main.NMAC1F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC';
+create or replace filter RBSC2.Main.NMAC2F no_access on '@IDESCENDANTS("Companies")', read on 'NMAC, NCA';
+create or replace filter RBSC2.Main.NMEX1F no_access on '@IDESCENDANTS("Companies")', read on 'NMEX';
+create or replace filter RBSC2.Main.NNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NNA';
+create or replace filter RBSC2.Main.NNA3F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NESCI, NCC';
+create or replace filter RBSC2.Main.NNA5F no_access on '@IDESCENDANTS("Companies")', read on 'NNA, NCA, NMAC, NCC, NESCI';
+create or replace filter RBSC2.Main.ANA2F no_access on '@IDESCENDANTS("Companies")', read on 'ANA, DAS';
+create or replace filter RBSC2.Main.IMS2F no_access on '@IDESCENDANTS("Companies")', read on 'IMS, NMCH';
+create or replace filter RBSC2.Main.NDA1F no_access on '@IDESCENDANTS("Companies")', read on 'NDA';
+create or replace filter RBSC2.Main.NMCIC4F no_access on '@IDESCENDANTS("Companies")', read on 'NMCIC, NMIC, NMIHC, NMISC';
+
+/* new five - mbowen@mdcbowen.org 20030502.1700 */
+create or replace filter RBSC2.Main.NCI2F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI';
+create or replace filter RBSC2.Main.NCI3F no_access on '@IDESCENDANTS("Companies")', read on 'NCI, NCFI, NESCO';
+create or replace filter RBSC2.Main.NESCO1F no_access on '@IDESCENDANTS("Companies")', read on 'NESCO';
+create or replace filter RBSC2.Main.NTCNA1F no_access on '@IDESCENDANTS("Companies")', read on 'NTCNA';
+create or replace filter RBSC2.Main.NMCH1F no_access on '@IDESCENDANTS("Companies")', read on 'NMCH';
+
+
+grant read on database RBSC2.Main to QAADM;
+grant read on database RBSC2.Main to NARDW;
+
+grant filter RBSC2.Main.NCA1F to NCA1;
+grant filter RBSC2.Main.NCC1F to NCC1;
+grant filter RBSC2.Main.NESCI1F to NESCI1;
+grant filter RBSC2.Main.NMAC1F to NMAC1;
+grant filter RBSC2.Main.NMAC2F to NMAC2;
+grant filter RBSC2.Main.NMEX1F to NMEX1;
+grant filter RBSC2.Main.NNA1F to NNA1;
+grant filter RBSC2.Main.NNA3F to NNA3;
+grant filter RBSC2.Main.NNA5F to NNA5;
+
+grant filter RBSC2.Main.ANA2F to ANA2;
+grant filter RBSC2.Main.IMS2F to IMS2;
+grant filter RBSC2.Main.NDA1F to NDA1;
+grant filter RBSC2.Main.NMCIC4F to NMCIC4;
+
+/* new five  */
+grant filter RBSC2.Main.NCI2F to NCI2;
+grant filter RBSC2.Main.NCI3F to NCI3;
+grant filter RBSC2.Main.NESCO1F to NESCO1;
+grant filter RBSC2.Main.NTCNA1F to NTCNA1;
+grant filter RBSC2.Main.NMCH1F to NMCH1;
+
+
+/* Students */
+
+grant designer on database F11.Main to Students;
+grant designer on database Demo.Basic to Students;
+grant read on database LOCL.Main to Students;
+grant read on database RPLU.Main to Students;
+
+
+exit;

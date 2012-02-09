@@ -1,0 +1,433 @@
+login 'jschwab' 'secret' on '10.70.95.193';
+spool on to '/03fs03/essbase/rdwmr/logs/RPLX2MainJob.log';
+
+alter database RPLX2.Main reset;
+/* ----------------------------------------------------------------------------- */
+/*   Actuals Dec03, Jan03, Feb03 NMEX Only                                       */
+/* ----------------------------------------------------------------------------- */
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2002-12/nmex6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-01/nmex6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-02/nmex6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+/* ----------------------------------------------------------------------------- */
+/*   Mar 03  Actuals All Companies                                               */
+/* ----------------------------------------------------------------------------- */
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/ana6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/das6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/ims6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/nca6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/ncc6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/ncfi6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/nci6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/nda6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/nesci6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/nesco6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/nmac6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/nmch6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/nmcic6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/nmex6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/nmic6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/nmihc6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/nmisc6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/nna6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-03/ntcna6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+
+/* ----------------------------------------------------------------------------- */
+/*   Apr 03 Actuals                                                              */
+/* ----------------------------------------------------------------------------- */
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/ana6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/das6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/ims6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/nca6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/ncc6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/ncfi6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/nci6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/nda6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/nesci6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/nesco6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/nmac6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/nmch6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/nmcic6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/nmex6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/nmic6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/nmihc6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/nmisc6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/nna6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-04/ntcna6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+/* ----------------------------------------------------------------------------- */
+/*   May 03 Actuals                                                              */
+/* ----------------------------------------------------------------------------- */
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/ana6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/das6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/ims6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/nca6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/ncc6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/ncfi6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/nci6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/nda6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/nesci6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/nesco6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/nmac6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/nmch6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/nmcic6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/nmex6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/nmic6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/nmihc6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/nmisc6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/nna6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/2003-05/ntcna6p.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_actload.err';
+
+/* ----------------------------------------------------------------------------- */
+/*   Budgets                                                                     */
+/* ----------------------------------------------------------------------------- */
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/ana6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/das6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/ims6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/nca6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/ncc6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/ncfi6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/nci6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/nda6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/nesci6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/nesco6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/nmac6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/nmch6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/nmcic6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/nmex6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/nmic6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/nmihc6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/nmisc6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/nna6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+import database RPLX2.Main data
+	from local text data_file '/03fs03/essbase/rdwmr/input/budgets/ntcna6p_b.txt'
+	using server rules_file 'l_data6'
+	on error append to '/03fs03/essbase/rdwmr/logs/RPLX2_budload.err';
+
+/* ----------------------------------------------------------------------------- */
+/*   Calculate Database                                                          */
+/* ----------------------------------------------------------------------------- */
+execute calculation RPLX2.Main.default; 
+
+spool off;
+logout;
+
+exit;
+
+
+
+
+
+
