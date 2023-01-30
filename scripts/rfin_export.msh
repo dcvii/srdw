@@ -9,4 +9,5 @@ input data to data_file
 '/03fs03/essbase/rdwmr/export/rfin_export3.txt',
 '/03fs03/essbase/rdwmr/export/rfin_export4.txt';
 alter application RFIN enable connects;
-logout; exit;
+logout; 
+exit;

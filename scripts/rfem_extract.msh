@@ -6,4 +6,5 @@ export database RFEM.Main
 input data in columns to data_file 
 '/03fs02/staging/nardw/FileXfer/Xferin/Elim/man_entry_elim.txt';
 alter application RFEM enable connects;
-logout; exit;
+logout; 
+exit;
